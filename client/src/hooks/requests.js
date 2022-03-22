@@ -1,6 +1,14 @@
-async function httpGetPlanets() {
-  // TODO: Once API is ready.
+import axios from 'axios'
+
+const API_URL = 'http://localhost:5000';
+
+const httpGetPlanets = async () => {
   // Load planets and return as JSON.
+ const response = await axios.get(`${API_URL}/planets`)
+ return response.data
+
+
+
 }
 
 async function httpGetLaunches() {
