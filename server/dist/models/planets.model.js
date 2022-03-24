@@ -22,9 +22,6 @@ function loadPlanetsData() {
             columns: true,
             relax_quotes: true,
             relax_column_count: true
-            // escape: '\\', 
-            // ltrim: true, 
-            // rtrim: true
         }))
             .on("data", (data) => {
             if (isHabitablePlanet(data)) {
