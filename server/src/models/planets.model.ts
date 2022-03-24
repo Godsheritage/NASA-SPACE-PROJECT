@@ -32,6 +32,7 @@ export function loadPlanetsData() {
       })
       .on("error", (err: any) => {
         console.log(err);
+        reject(err)
       })
       .on("end", () => {
         console.log(`${habitablePlanets.length} habitable planets found!`);
