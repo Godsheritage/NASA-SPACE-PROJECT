@@ -1,6 +1,7 @@
-const fs = require("fs");
+// const fs = require("fs");
+import fs from 'fs'
 import path from "path";
-const parse = require("csv-parse");
+import { parse } from 'csv-parse'
 
 const habitablePlanets: any = [];
 
@@ -33,12 +34,10 @@ export function loadPlanetsData() {
         console.log(err);
       })
       .on("end", () => {
-        console.log(
-          habitablePlanets.map((planet: any) => {
-            return planet["kepler_name"];
-          })
-        );
         console.log(`${habitablePlanets.length} habitable planets found!`);
+        resolve()
       });
   });
 }
+
+ export default habitablePlanets;

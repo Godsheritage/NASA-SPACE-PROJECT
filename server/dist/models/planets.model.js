@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loadPlanetsData = void 0;
-const fs = require("fs");
+// const fs = require("fs");
+const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const parse = require("csv-parse");
+const csv_parse_1 = require("csv-parse");
 const habitablePlanets = [];
 function isHabitablePlanet(planet) {
     return (planet["koi_disposition"] === "CONFIRMED" &&
@@ -16,8 +17,8 @@ function isHabitablePlanet(planet) {
 }
 function loadPlanetsData() {
     return new Promise((resolve, reject) => {
-        fs.createReadStream(path_1.default.join(__dirname, "..", "..", "data", "kepler_data.csv"))
-            .pipe(parse({
+        fs_1.default.createReadStream(path_1.default.join(__dirname, "..", "..", "data", "kepler_data.csv"))
+            .pipe((0, csv_parse_1.parse)({
             comment: "#",
             columns: true,
         }))
@@ -30,11 +31,10 @@ function loadPlanetsData() {
             console.log(err);
         })
             .on("end", () => {
-            console.log(habitablePlanets.map((planet) => {
-                return planet["kepler_name"];
-            }));
             console.log(`${habitablePlanets.length} habitable planets found!`);
+            resolve();
         });
     });
 }
 exports.loadPlanetsData = loadPlanetsData;
+exports.default = habitablePlanets;
