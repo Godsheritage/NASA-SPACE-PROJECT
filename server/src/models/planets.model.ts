@@ -1,4 +1,3 @@
-// const fs = require("fs");
 import fs from 'fs'
 import path from "path";
 import { parse } from 'csv-parse'
@@ -23,6 +22,11 @@ export function loadPlanetsData() {
         parse({
           comment: "#",
           columns: true,
+          relax_quotes: true,
+          relax_column_count:true
+          // escape: '\\', 
+          // ltrim: true, 
+          // rtrim: true
         })
       )
       .on("data", (data: any) => {

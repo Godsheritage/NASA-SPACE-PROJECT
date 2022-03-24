@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loadPlanetsData = void 0;
-// const fs = require("fs");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const csv_parse_1 = require("csv-parse");
@@ -21,6 +20,11 @@ function loadPlanetsData() {
             .pipe((0, csv_parse_1.parse)({
             comment: "#",
             columns: true,
+            relax_quotes: true,
+            relax_column_count: true
+            // escape: '\\', 
+            // ltrim: true, 
+            // rtrim: true
         }))
             .on("data", (data) => {
             if (isHabitablePlanet(data)) {
