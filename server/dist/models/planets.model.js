@@ -28,13 +28,13 @@ function loadPlanetsData() {
         })
             .on("error", (err) => {
             console.log(err);
-            reject(err);
         })
             .on("end", () => {
+            console.log(habitablePlanets.map((planet) => {
+                return planet["kepler_name"];
+            }));
             console.log(`${habitablePlanets.length} habitable planets found!`);
-            resolve();
         });
     });
 }
 exports.loadPlanetsData = loadPlanetsData;
-exports.default = habitablePlanets;

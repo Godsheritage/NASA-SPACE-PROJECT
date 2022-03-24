@@ -17,7 +17,7 @@ export function loadPlanetsData() {
   return new Promise<void>((resolve, reject) => {
     fs.createReadStream(
       path.join(__dirname, "..", "..", "data", "kepler_data.csv")
-      )
+    )
       .pipe(
         parse({
           comment: "#",
@@ -31,13 +31,14 @@ export function loadPlanetsData() {
       })
       .on("error", (err: any) => {
         console.log(err);
-        reject(err);
       })
       .on("end", () => {
+        console.log(
+          habitablePlanets.map((planet: any) => {
+            return planet["kepler_name"];
+          })
+        );
         console.log(`${habitablePlanets.length} habitable planets found!`);
-        resolve();
       });
   });
 }
-
-export default habitablePlanets;
