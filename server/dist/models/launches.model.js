@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.addNewLaunch = void 0;
 const launches = new Map();
 let latestFlightNumber = 100;
 const launch = {
@@ -24,4 +25,5 @@ const addNewLaunch = (launch) => {
         flightNumber: latestFlightNumber,
     }));
 };
+exports.addNewLaunch = addNewLaunch;
 exports.default = getAllLaunches;

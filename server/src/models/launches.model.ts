@@ -19,7 +19,7 @@ const getAllLaunches = () => {
   return Array.from(launches.values());
 };
 
-const addNewLaunch = (launch: any) => {
+export const addNewLaunch = (launch: any) => {
   latestFlightNumber++;
   launches.set(
     latestFlightNumber,
