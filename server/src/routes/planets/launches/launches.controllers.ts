@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
-import launches from "../../../models/launches.model";
+import getAllLaunches from "../../../models/launches.model";
 
-const getAllLaunches: RequestHandler = (req, res) => {
-  return res.status(200).json(Array.from(launches.values()));
+const httpgetAllLaunches: RequestHandler = (req, res) => {
+  return res.status(200).json(getAllLaunches());
 };
 
-export default getAllLaunches;
+export default httpgetAllLaunches;

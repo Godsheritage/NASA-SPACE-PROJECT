@@ -13,4 +13,8 @@ const launch = {
 
 launches.set(launch.flightNumber, launch)
 
-export default launches
+const getAllLaunches = () => {
+    return Array.from(launches.values())
+}
+
+export default getAllLaunches

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const launches_model_1 = __importDefault(require("../../../models/launches.model"));
-const getAllLaunches = (req, res) => {
-    return res.status(200).json(Array.from(launches_model_1.default.values()));
+const httpgetAllLaunches = (req, res) => {
+    return res.status(200).json((0, launches_model_1.default)());
 };
-exports.default = getAllLaunches;
+exports.default = httpgetAllLaunches;
