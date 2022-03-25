@@ -18,7 +18,7 @@ app.use(express_1.default.static(path_1.default.join(__dirname, "..", "public ")
 app.use(express_1.default.json());
 app.use(planets_router_1.default);
 app.use(launches_router_1.default);
-app.get("/", (req, res) => {
+app.get("/*", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "..", "public ", "index.html"));
 });
 exports.default = app;
