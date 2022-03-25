@@ -11,9 +11,16 @@ const httpGetPlanets = async () => {
 
 }
 
-async function httpGetLaunches() {
-  // TODO: Once API is ready.
-  // Load launches, sort by flight number, and return as JSON.
+// Load launches, sort by flight number, and return as JSON.
+const httpGetLaunches = async () => {
+  const response = await axios.get(`${API_URL}/launches`)
+  const fetchedLaunches = response.data
+  return fetchedLaunches.sort((a , b) => {
+    return a.flightNumber - b.flightNumber
+  })
+  
+
+
 }
 
 async function httpSubmitLaunch(launch) {
