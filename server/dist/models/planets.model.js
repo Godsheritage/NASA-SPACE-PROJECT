@@ -21,7 +21,7 @@ function loadPlanetsData() {
             comment: "#",
             columns: true,
             relax_quotes: true,
-            relax_column_count: true
+            relax_column_count: true,
         }))
             .on("data", (data) => {
             if (isHabitablePlanet(data)) {
@@ -39,4 +39,7 @@ function loadPlanetsData() {
     });
 }
 exports.loadPlanetsData = loadPlanetsData;
-exports.default = habitablePlanets;
+const getAllPlanets = () => {
+    return habitablePlanets;
+};
+exports.default = getAllPlanets;

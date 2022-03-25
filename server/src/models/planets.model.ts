@@ -1,6 +1,6 @@
-import fs from 'fs'
+import fs from "fs";
 import path from "path";
-import { parse } from 'csv-parse'
+import { parse } from "csv-parse";
 
 const habitablePlanets: any = [];
 
@@ -14,7 +14,7 @@ function isHabitablePlanet(planet: any) {
 }
 
 export function loadPlanetsData() {
-  return new Promise <void> ((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     fs.createReadStream(
       path.join(__dirname, "..", "..", "data", "kepler_data.csv")
     )
@@ -23,7 +23,7 @@ export function loadPlanetsData() {
           comment: "#",
           columns: true,
           relax_quotes: true,
-          relax_column_count:true
+          relax_column_count: true,
         })
       )
       .on("data", (data: any) => {
@@ -33,13 +33,17 @@ export function loadPlanetsData() {
       })
       .on("error", (err: any) => {
         console.log(err);
-        reject(err)
+        reject(err);
       })
       .on("end", () => {
         console.log(`${habitablePlanets.length} habitable planets found!`);
-        resolve()
+        resolve();
       });
   });
 }
 
- export default habitablePlanets;
+const getAllPlanets = () => {
+  return habitablePlanets;
+};
+
+export default getAllPlanets;

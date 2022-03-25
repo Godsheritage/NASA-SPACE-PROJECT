@@ -1,9 +1,8 @@
-import { RequestHandler } from "express"
-import habitablePlanets from "../../models/planets.model"
+import { RequestHandler } from "express";
+import getAllPlanets from "../../models/planets.model";
 
+const httpgetAllPlanets: RequestHandler = (req, res) => {
+  res.status(200).json(getAllPlanets());
+};
 
-
-
-export const getAllPlanets:RequestHandler = (req, res) => {
-    res.status(200).json(habitablePlanets)
-}
+export default httpgetAllPlanets;
