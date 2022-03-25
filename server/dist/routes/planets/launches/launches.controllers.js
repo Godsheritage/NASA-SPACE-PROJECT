@@ -19,13 +19,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.httpAddNewLaunch = void 0;
 const launches_model_1 = __importStar(require("../../../models/launches.model"));
-const httpgetAllLaunches = (req, res) => {
+const httpGetAllLaunches = (req, res) => {
     return res.status(200).json((0, launches_model_1.default)());
 };
-const httpaddNewLaunch = (req, res) => {
+const httpAddNewLaunch = (req, res) => {
     const launch = req.body;
     launch.launchDate = new Date(launch.launchDate);
     (0, launches_model_1.addNewLaunch)(launch);
+    return res.status(201).json(launch);
 };
-exports.default = httpgetAllLaunches;
+exports.httpAddNewLaunch = httpAddNewLaunch;
+exports.default = httpGetAllLaunches;

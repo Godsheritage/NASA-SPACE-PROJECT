@@ -3,6 +3,6 @@ import  httpgetAllPlanets  from "./planets.controllers";
 
 const planetRouter = express.Router();
 
-planetRouter.get("/planets", httpgetAllPlanets);
+planetRouter.get("/", httpgetAllPlanets);
 
 export default planetRouter;
