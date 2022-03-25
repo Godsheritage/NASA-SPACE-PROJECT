@@ -22,6 +22,7 @@ const addNewLaunch = (launch) => {
     launches.set(latestFlightNumber, Object.assign(launch, {
         upcoming: true,
         success: true,
+        custumers: ["Godsheritage", "Crownfit"],
         flightNumber: latestFlightNumber,
     }));
 };
