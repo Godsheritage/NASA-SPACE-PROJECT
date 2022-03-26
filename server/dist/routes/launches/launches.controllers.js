@@ -26,9 +26,24 @@ const httpGetAllLaunches = (req, res) => {
 };
 const httpAddNewLaunch = (req, res) => {
     const launch = req.body;
+    if (!launch.mission ||
+        !launch.rocket ||
+        !launch.launchDate ||
+        !launch.target) {
+        return res.status(400).json({
+            error: "missing required launch properties",
+        });
+    }
     launch.launchDate = new Date(launch.launchDate);
-    (0, launches_model_1.addNewLaunch)(launch);
-    return res.status(201).json(launch);
+    if (launch.launchDate.toString() === "Invalid Date") {
+        return res.status(400).json({
+            error: "invalid launch date",
+        });
+    }
+    else {
+        (0, launches_model_1.addNewLaunch)(launch);
+        return res.status(201).json(launch);
+    }
 };
 exports.httpAddNewLaunch = httpAddNewLaunch;
 exports.default = httpGetAllLaunches;
