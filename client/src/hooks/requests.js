@@ -17,10 +17,11 @@ const httpGetLaunches = async () => {
   });
 };
 
-  // Submit given launch data to launch system.
-  const httpSubmitLaunch = async (launch) => {
-    return await axios.get(`${API_URL}/LAUNCHES`, launch);
-  }
+// Submit given launch data to launch system.
+
+const httpSubmitLaunch = async (launch) => {
+  return await axios.post(`${API_URL}/launches`, launch);
+};
 
 async function httpAbortLaunch(id) {
   // TODO: Once API is ready.
