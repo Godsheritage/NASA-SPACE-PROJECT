@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.httpAddNewLaunch = void 0;
+exports.httpAbortLaunch = exports.httpAddNewLaunch = void 0;
 const launches_model_1 = __importStar(require("../../models/launches.model"));
 const httpGetAllLaunches = (req, res) => {
     return res.status(200).json((0, launches_model_1.default)());
@@ -40,10 +40,20 @@ const httpAddNewLaunch = (req, res) => {
             error: "invalid launch date",
         });
     }
-    else {
-        (0, launches_model_1.addNewLaunch)(launch);
-        return res.status(201).json(launch);
-    }
+    (0, launches_model_1.addNewLaunch)(launch);
+    return res.status(201).json(launch);
 };
 exports.httpAddNewLaunch = httpAddNewLaunch;
+const httpAbortLaunch = (req, res) => {
+    const launchId = +req.params.id;
+    //if launch doesnt exist
+    if (!(0, launches_model_1.existLaunchWithId)(launchId)) {
+        res.status(404).json({
+            error: "Launch not found",
+        });
+    }
+    const aborted = (0, launches_model_1.abortLaunchById)(launchId);
+    return res.status(200).json(aborted);
+};
+exports.httpAbortLaunch = httpAbortLaunch;
 exports.default = httpGetAllLaunches;

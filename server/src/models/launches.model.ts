@@ -19,6 +19,10 @@ const getAllLaunches = () => {
   return Array.from(launches.values());
 };
 
+export const existLaunchWithId = (launchId:any)  => {
+  return launches.has(launchId)
+}
+
 export const addNewLaunch = (launch: any) => {
   latestFlightNumber++;
   launches.set(
@@ -31,5 +35,14 @@ export const addNewLaunch = (launch: any) => {
     })
   );
 };
+
+
+export const abortLaunchById = (launchId: any) => {
+  const aborted = launches.get(launchId)
+  aborted.upcoming = false
+  aborted.success = false
+  return aborted
+
+}
 
 export default getAllLaunches;

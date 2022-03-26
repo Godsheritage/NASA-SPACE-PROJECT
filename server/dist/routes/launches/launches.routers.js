@@ -27,4 +27,5 @@ const launches_controllers_1 = __importStar(require("./launches.controllers"));
 const launchesRouter = express_1.default.Router();
 launchesRouter.get('/launches', launches_controllers_1.default);
 launchesRouter.post('/launches', launches_controllers_1.httpAddNewLaunch);
+launchesRouter.delete('/launches/:id', launches_controllers_1.httpAbortLaunch);
 exports.default = launchesRouter;

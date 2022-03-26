@@ -1,5 +1,9 @@
 import { RequestHandler } from "express";
-import getAllLaunches, { addNewLaunch } from "../../models/launches.model";
+import getAllLaunches, {
+  abortLaunchById,
+  addNewLaunch,
+  existLaunchWithId,
+} from "../../models/launches.model";
 
 const httpGetAllLaunches: RequestHandler = (req, res) => {
   return res.status(200).json(getAllLaunches());
@@ -26,11 +30,22 @@ export const httpAddNewLaunch: RequestHandler = (req, res) => {
       error: "invalid launch date",
     });
   }
-  else{
-    addNewLaunch(launch);
-    return res.status(201).json(launch);
+  addNewLaunch(launch);
+  return res.status(201).json(launch);
+};
+
+export const httpAbortLaunch: RequestHandler = (req, res) => {
+  const launchId = +req.params.id;
+
+  //if launch doesnt exist
+  if (!existLaunchWithId(launchId)) {
+    res.status(404).json({
+      error: "Launch not found",
+    });
   }
 
+  const aborted = abortLaunchById(launchId)
+  return res.status(200).json(aborted)
 };
 
 export default httpGetAllLaunches;
