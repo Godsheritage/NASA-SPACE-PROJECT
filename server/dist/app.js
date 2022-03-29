@@ -12,11 +12,11 @@ const launches_routers_1 = __importDefault(require("./routes/launches/launches.r
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)("combined"));
+app.use(express_1.default.json());
+app.use('/planets', planets_routers_1.default);
+app.use('/launches', launches_routers_1.default);
 app.use(express_1.default.static(path_1.default.join(__dirname, "..", "public ")));
 app.get("/*", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "..", "public ", "index.html"));
 });
-app.use(express_1.default.json());
-app.use("/planets", planets_routers_1.default);
-app.use('launches', launches_routers_1.default);
 exports.default = app;
