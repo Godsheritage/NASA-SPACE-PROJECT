@@ -7,11 +7,7 @@ import launchesRouter from "./routes/launches/launches.routers";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+app.use(cors());
 
 app.use(morgan("combined"));
 app.use(express.static(path.join(__dirname, "..", "public ")));
@@ -20,6 +16,6 @@ app.get("/*", (req, res) => {
 });
 app.use(express.json());
 app.use("/planets", planetRouter);
-app.use(launchesRouter);
+app.use('launches', launchesRouter);
 
 export default app;
