@@ -26,4 +26,7 @@ const launchesSchema: Schema = new mongoose.Schema({
 });
 
 
-export default mongoose.model('launch', launchesSchema )
+
+const Launches = mongoose.model('Launch', launchesSchema )
+
+export default Launches
