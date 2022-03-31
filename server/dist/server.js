@@ -14,11 +14,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
 const app_1 = __importDefault(require("./app"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const planets_model_1 = require("./models/planets.model");
-const server = http_1.default.createServer(app_1.default);
 const PORT = process.env.PORT || 5000;
+const MONGO_URL = 'mongodb+srv://nasa-api:Heritage4lyf@nasacluster.ndy00.mongodb.net/nasa?retryWrites=true&w=majority';
+const server = http_1.default.createServer(app_1.default);
+mongoose_1.default.connection.once('open', () => {
+    console.log('MongoDB Connection is ready');
+});
+mongoose_1.default.connection.on('eror', (err) => {
+    console.error(err);
+});
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, planets_model_1.loadPlanetsData)();
+    //
+    // extra options that should have gione wuth mongoose.connect {
+    //   useNewUrlParser:true,
+    //   useFindAndModify:false,
+    //   useCrateIndex:true,
+    //   useUnifiedTopology:true
+    // }
+    yield mongoose_1.default.connect(MONGO_URL);
     server.listen(PORT, () => {
         console.log(`server is listenening on port ${PORT}...`);
     });
