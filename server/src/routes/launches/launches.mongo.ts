@@ -25,6 +25,4 @@ const UserSchema: Schema = new mongoose.Schema({
   sucess: { type: Boolean, default:true, required: true },
 });
 
-// const launchesSchema:Schema = new mongoose.Schema<types>({
-//   flightNumber: {type:string, required: true}
-// })
+
