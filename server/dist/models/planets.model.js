@@ -7,6 +7,7 @@ exports.loadPlanetsData = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const csv_parse_1 = require("csv-parse");
+// import planet from "./planets.mongo";
 const habitablePlanets = [];
 function isHabitablePlanet(planet) {
     return (planet["koi_disposition"] === "CONFIRMED" &&
