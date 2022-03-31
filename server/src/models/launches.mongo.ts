@@ -3,7 +3,7 @@
 import mongoose, { model, Schema, Model, Document } from "mongoose";
 // where the schema will be stored
 
-interface IUser extends Document {
+interface launchesTypes extends Document {
   flightNumber: string;
   launchDate: Date;
   mission: string;
