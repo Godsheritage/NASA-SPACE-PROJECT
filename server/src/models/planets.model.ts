@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse";
+// import planet from "./planets.mongo";
 
 const habitablePlanets: any = [];
 

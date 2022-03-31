@@ -9,4 +9,5 @@ const planetSchema: Schema = new mongoose.Schema({
 });
 
 
-// mongoose.model('planet', planetSchema)
+const planet =  mongoose.model('planet', planetSchema)
+export default planet
