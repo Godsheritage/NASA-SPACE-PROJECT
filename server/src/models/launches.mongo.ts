@@ -14,7 +14,7 @@ interface launchesTypes extends Document {
   sucess: Boolean;
 }
 
-const UserSchema: Schema = new mongoose.Schema({
+const launchesSchema: Schema = new mongoose.Schema({
   flightNumber: { type: Date, required: true },
   launchDate: { type: String, required: true },
   mission: { type: String, required: true },
@@ -26,3 +26,4 @@ const UserSchema: Schema = new mongoose.Schema({
 });
 
 
+export default mongoose.model('launch', launchesSchema )

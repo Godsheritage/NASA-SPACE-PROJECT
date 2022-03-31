@@ -7,3 +7,6 @@ interface planetTypes extends Document {
 const planetSchema: Schema = new mongoose.Schema({
   keplerName: { type: String, required: true },
 });
+
+
+// mongoose.model('planet', planetSchema)
