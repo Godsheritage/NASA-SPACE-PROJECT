@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse";
-// import planet from "./planets.mongo";
+import planets from "./planets.mongo"; 
 
 const habitablePlanets: any = [];
 
@@ -27,9 +27,12 @@ export function loadPlanetsData() {
           relax_column_count: true,
         })
       )
-      .on("data", (data: any) => {
+      .on("data", async (data: any) => {
         if (isHabitablePlanet(data)) {
-          habitablePlanets.push(data);
+          //TODO create the upsert statement
+        //  await planets.create({
+        //    keplerName : data.kepler_name
+        //  })
         }
       })
       .on("error", (err: any) => {
@@ -43,8 +46,8 @@ export function loadPlanetsData() {
   });
 }
 
-const getAllPlanets = () => {
-  return habitablePlanets;
+const getAllPlanets = async () => {
+  return await planets.find({})
 };
 
 export default getAllPlanets;

@@ -8,5 +8,5 @@ const planetSchema = new mongoose_1.default.Schema({
     keplerName: { type: String, required: true },
 });
 //connect planetschema with the planet collection
-const planet = mongoose_1.default.model('planet', planetSchema);
-exports.default = planet;
+const planets = mongoose_1.default.model('planet', planetSchema);
+exports.default = planets;

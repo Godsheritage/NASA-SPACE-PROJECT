@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -7,7 +16,7 @@ exports.loadPlanetsData = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const csv_parse_1 = require("csv-parse");
-// import planet from "./planets.mongo";
+const planets_mongo_1 = __importDefault(require("./planets.mongo"));
 const habitablePlanets = [];
 function isHabitablePlanet(planet) {
     return (planet["koi_disposition"] === "CONFIRMED" &&
@@ -24,11 +33,14 @@ function loadPlanetsData() {
             relax_quotes: true,
             relax_column_count: true,
         }))
-            .on("data", (data) => {
+            .on("data", (data) => __awaiter(this, void 0, void 0, function* () {
             if (isHabitablePlanet(data)) {
-                habitablePlanets.push(data);
+                //TODO create the upsert statement
+                //  await planets.create({
+                //    keplerName : data.kepler_name
+                //  })
             }
-        })
+        }))
             .on("error", (err) => {
             console.log(err);
             reject(err);
@@ -40,7 +52,7 @@ function loadPlanetsData() {
     });
 }
 exports.loadPlanetsData = loadPlanetsData;
-const getAllPlanets = () => {
-    return habitablePlanets;
-};
+const getAllPlanets = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield planets_mongo_1.default.find({});
+});
 exports.default = getAllPlanets;
