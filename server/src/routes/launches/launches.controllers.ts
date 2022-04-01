@@ -5,8 +5,8 @@ import getAllLaunches, {
   existLaunchWithId,
 } from "../../models/launches.model";
 
-const httpGetAllLaunches: RequestHandler = (req, res) => {
-  return res.status(200).json(getAllLaunches());
+const httpGetAllLaunches: RequestHandler = async (req, res) => {
+  return res.status(200).json( await getAllLaunches());
 };
 
 export const httpAddNewLaunch: RequestHandler = (req, res) => {

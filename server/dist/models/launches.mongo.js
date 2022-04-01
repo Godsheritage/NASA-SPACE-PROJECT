@@ -16,5 +16,5 @@ const launchesSchema = new mongoose_1.default.Schema({
     sucess: { type: Boolean, default: true, required: true },
 });
 //connect launchesSchema with the launches collection
-const Launches = mongoose_1.default.model('Launch', launchesSchema);
-exports.default = Launches;
+const launchesDatabase = mongoose_1.default.model('Launch', launchesSchema);
+exports.default = launchesDatabase;

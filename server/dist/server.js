@@ -26,6 +26,7 @@ mongoose_1.default.connection.on('eror', (err) => {
     console.error(err);
 });
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield mongoose_1.default.connect(MONGO_URL);
     yield (0, planets_model_1.loadPlanetsData)();
     //
     // extra options that should have gione wuth mongoose.connect {
@@ -34,7 +35,6 @@ const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     //   useCrateIndex:true,
     //   useUnifiedTopology:true
     // }
-    yield mongoose_1.default.connect(MONGO_URL);
     server.listen(PORT, () => {
         console.log(`server is listenening on port ${PORT}...`);
     });

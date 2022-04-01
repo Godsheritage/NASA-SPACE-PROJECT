@@ -17,7 +17,7 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const csv_parse_1 = require("csv-parse");
 const planets_mongo_1 = __importDefault(require("./planets.mongo"));
-const habitablePlanets = [];
+// const habitablePlanets: any = [];
 function isHabitablePlanet(planet) {
     return (planet["koi_disposition"] === "CONFIRMED" &&
         planet["koi_insol"] > 0.36 &&
@@ -35,24 +35,32 @@ function loadPlanetsData() {
         }))
             .on("data", (data) => __awaiter(this, void 0, void 0, function* () {
             if (isHabitablePlanet(data)) {
-                //TODO create the upsert statement
-                //  await planets.create({
-                //    keplerName : data.kepler_name
-                //  })
+                savePlanet(data);
             }
         }))
             .on("error", (err) => {
             console.log(err);
             reject(err);
         })
-            .on("end", () => {
-            console.log(`${habitablePlanets.length} habitable planets found!`);
+            .on("end", () => __awaiter(this, void 0, void 0, function* () {
+            const countPlanetsFound = (yield getAllPlanets()).length;
+            console.log(`${countPlanetsFound} habitable planets found!`);
             resolve();
-        });
+        }));
     });
 }
 exports.loadPlanetsData = loadPlanetsData;
 const getAllPlanets = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield planets_mongo_1.default.find({});
+    return yield planets_mongo_1.default.find({}, { __v: 0, _id: 0 });
+});
+const savePlanet = (planet) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield planets_mongo_1.default.updateOne({
+            keplerName: planet.kepler_name,
+        }, { keplerName: planet.kepler_name }, { upsert: true });
+    }
+    catch (err) {
+        console.error(`could not save planet, ${err}`);
+    }
 });
 exports.default = getAllPlanets;

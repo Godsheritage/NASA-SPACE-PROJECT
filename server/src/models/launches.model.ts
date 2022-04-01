@@ -1,4 +1,4 @@
-// import Launches from "./launches.mongo";
+import launchesDatabase from "./launches.mongo";
 
 const launches = new Map();
 
@@ -15,15 +15,27 @@ const launch = {
   success: true,
 };
 
-launches.set(launch.flightNumber, launch);
-
-const getAllLaunches = () => {
-  return Array.from(launches.values());
+const getAllLaunches = async () => {
+  return await launchesDatabase.find({}, { __v: 0, _id: 0 });
 };
 
-export const existLaunchWithId = (launchId:any)  => {
-  return launches.has(launchId)
-}
+const saveLaunch = async (launch: any) => {
+  await launchesDatabase.updateOne(
+    {
+      flightMumber: launch.flightNumber,
+    },
+    launch,
+    {
+      upsert: true,
+    }
+  );
+};
+
+saveLaunch(launch);
+
+export const existLaunchWithId = (launchId: any) => {
+  return launches.has(launchId);
+};
 
 export const addNewLaunch = (launch: any) => {
   latestFlightNumber++;
@@ -38,13 +50,11 @@ export const addNewLaunch = (launch: any) => {
   );
 };
 
-
 export const abortLaunchById = (launchId: any) => {
-  const aborted = launches.get(launchId)
-  aborted.upcoming = false
-  aborted.success = false
-  return aborted
-
-}
+  const aborted = launches.get(launchId);
+  aborted.upcoming = false;
+  aborted.success = false;
+  return aborted;
+};
 
 export default getAllLaunches;

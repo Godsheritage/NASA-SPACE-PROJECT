@@ -27,6 +27,6 @@ const launchesSchema: Schema = new mongoose.Schema({
 
 
 //connect launchesSchema with the launches collection
-const Launches = mongoose.model('Launch', launchesSchema )
+const launchesDatabase = mongoose.model('Launch', launchesSchema )
 
-export default Launches
+export default launchesDatabase
