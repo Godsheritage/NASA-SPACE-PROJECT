@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import getAllLaunches, {
   abortLaunchById,
-  addNewLaunch,
+  scheduleNewLaunch,
   existLaunchWithId,
 } from "../../models/launches.model";
 
@@ -9,7 +9,7 @@ const httpGetAllLaunches: RequestHandler = async (req, res) => {
   return res.status(200).json( await getAllLaunches());
 };
 
-export const httpAddNewLaunch: RequestHandler = (req, res) => {
+export const httpAddNewLaunch: RequestHandler = async (req, res) => {
   const launch = req.body;
 
   if (
@@ -30,7 +30,7 @@ export const httpAddNewLaunch: RequestHandler = (req, res) => {
       error: "invalid launch date",
     });
   }
-  addNewLaunch(launch);
+  await scheduleNewLaunch(launch);
   return res.status(201).json(launch);
 };
 

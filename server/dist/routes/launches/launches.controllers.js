@@ -37,7 +37,7 @@ const launches_model_1 = __importStar(require("../../models/launches.model"));
 const httpGetAllLaunches = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(200).json(yield (0, launches_model_1.default)());
 });
-const httpAddNewLaunch = (req, res) => {
+const httpAddNewLaunch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const launch = req.body;
     if (!launch.mission ||
         !launch.rocket ||
@@ -53,9 +53,9 @@ const httpAddNewLaunch = (req, res) => {
             error: "invalid launch date",
         });
     }
-    (0, launches_model_1.addNewLaunch)(launch);
+    yield (0, launches_model_1.scheduleNewLaunch)(launch);
     return res.status(201).json(launch);
-};
+});
 exports.httpAddNewLaunch = httpAddNewLaunch;
 const httpAbortLaunch = (req, res) => {
     const launchId = +req.params.id;
