@@ -15,8 +15,8 @@ interface launchesTypes extends Document {
 }
 
 const launchesSchema: Schema = new mongoose.Schema({
-  flightNumber: { type: Date, required: true },
-  launchDate: { type: String, required: true },
+  flightNumber: { type: Number, required: true },
+  launchDate: { type: Date, required: true },
   mission: { type: String, required: true },
   rocket: { type: String, required: true },
   target: { type: String, required: true },

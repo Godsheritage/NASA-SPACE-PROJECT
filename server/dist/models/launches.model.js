@@ -27,11 +27,11 @@ const launch = {
     success: true,
 };
 const getAllLaunches = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield launches_mongo_1.default.find({}, { __v: 0, _id: 0 });
+    return yield launches_mongo_1.default.find({}, { '_id': 0, '__v': 0 });
 });
 const saveLaunch = (launch) => __awaiter(void 0, void 0, void 0, function* () {
     yield launches_mongo_1.default.updateOne({
-        flightMumber: launch.flightNumber,
+        flightNumber: launch.flightNumber,
     }, launch, {
         upsert: true,
     });

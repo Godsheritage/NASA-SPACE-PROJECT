@@ -6,8 +6,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const launchesSchema = new mongoose_1.default.Schema({
-    flightNumber: { type: Date, required: true },
-    launchDate: { type: String, required: true },
+    flightNumber: { type: Number, required: true },
+    launchDate: { type: Date, required: true },
     mission: { type: String, required: true },
     rocket: { type: String, required: true },
     target: { type: String, required: true },

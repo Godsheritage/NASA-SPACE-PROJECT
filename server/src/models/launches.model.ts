@@ -16,13 +16,13 @@ const launch = {
 };
 
 const getAllLaunches = async () => {
-  return await launchesDatabase.find({}, { __v: 0, _id: 0 });
+  return await launchesDatabase.find({}, {'_id': 0 , '__v' : 0 });
 };
 
 const saveLaunch = async (launch: any) => {
   await launchesDatabase.updateOne(
     {
-      flightMumber: launch.flightNumber,
+      flightNumber: launch.flightNumber,
     },
     launch,
     {
