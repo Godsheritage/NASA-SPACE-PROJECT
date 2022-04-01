@@ -34,6 +34,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.httpAbortLaunch = exports.httpAddNewLaunch = void 0;
 const launches_model_1 = __importStar(require("../../models/launches.model"));
+// get controller 
 const httpGetAllLaunches = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(200).json(yield (0, launches_model_1.default)());
 });

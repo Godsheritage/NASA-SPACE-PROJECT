@@ -28,6 +28,7 @@ const launch = {
     upcoming: true,
     success: true,
 };
+//to get the latest flight number
 const getLatestFlightNumber = () => __awaiter(void 0, void 0, void 0, function* () {
     const latestLaunch = yield launches_mongo_1.default.findOne().sort("-flightNumber");
     if (!latestLaunch) {
@@ -35,9 +36,11 @@ const getLatestFlightNumber = () => __awaiter(void 0, void 0, void 0, function* 
     }
     return latestLaunch.flightNumber;
 });
+//to get all the launches from the database
 const getAllLaunches = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield launches_mongo_1.default.find({}, { _id: 0, __v: 0 });
 });
+//to save the launches to the databse
 const saveLaunch = (launch) => __awaiter(void 0, void 0, void 0, function* () {
     const planet = yield planets_mongo_1.default.findOne({
         keplerName: launch.target,
@@ -45,7 +48,7 @@ const saveLaunch = (launch) => __awaiter(void 0, void 0, void 0, function* () {
     if (!planet) {
         throw new Error("No matching planets found");
     }
-    yield launches_mongo_1.default.updateOne({
+    yield launches_mongo_1.default.findOneAndUpdate({
         flightNumber: launch.flightNumber,
     }, launch, {
         upsert: true,
@@ -68,18 +71,7 @@ const scheduleNewLaunch = (launch) => __awaiter(void 0, void 0, void 0, function
     yield saveLaunch(newLaunch);
 });
 exports.scheduleNewLaunch = scheduleNewLaunch;
-// export const addNewLaunch = (launch: any) => {
-//   latestFlightNumber++;
-//   launches.set(
-//     latestFlightNumber,
-//     Object.assign(launch, {
-//       upcoming: true,
-//       success: true,
-//       custumers: ["Godsheritage", "Crownfit"],
-//       flightNumber: latestFlightNumber,
-//     })
-//   );
-// };
+//to abort launches with id
 const abortLaunchById = (launchId) => {
     const aborted = launches.get(launchId);
     aborted.upcoming = false;

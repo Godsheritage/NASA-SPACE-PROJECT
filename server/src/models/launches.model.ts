@@ -18,6 +18,7 @@ const launch = {
   success: true,
 };
 
+//to get the latest flight number
 const getLatestFlightNumber = async () => {
   const latestLaunch = await launchesDatabase.findOne().sort("-flightNumber");
 
@@ -28,10 +29,12 @@ const getLatestFlightNumber = async () => {
   return latestLaunch.flightNumber;
 };
 
+//to get all the launches from the database
 const getAllLaunches = async () => {
   return await launchesDatabase.find({}, { _id: 0, __v: 0 });
 };
 
+//to save the launches to the databse
 const saveLaunch = async (launch: any) => {
   const planet = await planets.findOne({
     keplerName: launch.target,
@@ -39,7 +42,7 @@ const saveLaunch = async (launch: any) => {
   if (!planet) {
     throw new Error("No matching planets found");
   }
-  await launchesDatabase.updateOne(
+  await launchesDatabase.findOneAndUpdate(
     {
       flightNumber: launch.flightNumber,
     },
@@ -52,9 +55,11 @@ const saveLaunch = async (launch: any) => {
 
 saveLaunch(launch);
 
+
 export const existLaunchWithId = (launchId: any) => {
   return launches.has(launchId);
 };
+
 //to schedule a new launch and assign the incremental flight number
 export const scheduleNewLaunch = async (launch: any) => {
   const newFlightNumber = (await getLatestFlightNumber()) + 1;
@@ -68,19 +73,7 @@ export const scheduleNewLaunch = async (launch: any) => {
   await saveLaunch(newLaunch);
 };
 
-// export const addNewLaunch = (launch: any) => {
-//   latestFlightNumber++;
-//   launches.set(
-//     latestFlightNumber,
-//     Object.assign(launch, {
-//       upcoming: true,
-//       success: true,
-//       custumers: ["Godsheritage", "Crownfit"],
-//       flightNumber: latestFlightNumber,
-//     })
-//   );
-// };
-
+//to abort launches with id
 export const abortLaunchById = (launchId: any) => {
   const aborted = launches.get(launchId);
   aborted.upcoming = false;
