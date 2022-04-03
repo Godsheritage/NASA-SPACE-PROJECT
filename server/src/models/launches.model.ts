@@ -55,10 +55,10 @@ const saveLaunch = async (launch: any) => {
 
 saveLaunch(launch);
 
-
-export const existLaunchWithId = (launchId: any) => {
-  return launches.has(launchId);
+export const existLaunchWithId = async (launchId: any) => {
+  return await launchesDatabase.findOne({ flightNumber: launchId });
 };
+
 
 //to schedule a new launch and assign the incremental flight number
 export const scheduleNewLaunch = async (launch: any) => {
@@ -74,11 +74,18 @@ export const scheduleNewLaunch = async (launch: any) => {
 };
 
 //to abort launches with id
-export const abortLaunchById = (launchId: any) => {
-  const aborted = launches.get(launchId);
-  aborted.upcoming = false;
-  aborted.success = false;
-  return aborted;
+export const abortLaunchById = async (launchId: any) => {
+  const aborted: any = await launchesDatabase.updateOne(
+    {
+      flightNumber: launchId,
+    },
+    {
+      upcoming: false,
+      sucess: false,
+    }
+  );
+  return aborted.modifiedCount === 1;
+
 };
 
 export default getAllLaunches;

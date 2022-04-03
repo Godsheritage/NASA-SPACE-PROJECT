@@ -34,10 +34,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.httpAbortLaunch = exports.httpAddNewLaunch = void 0;
 const launches_model_1 = __importStar(require("../../models/launches.model"));
-// get controller 
+//get all launches
 const httpGetAllLaunches = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(200).json(yield (0, launches_model_1.default)());
 });
+// post controller
 const httpAddNewLaunch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const launch = req.body;
     if (!launch.mission ||
@@ -58,16 +59,24 @@ const httpAddNewLaunch = (req, res) => __awaiter(void 0, void 0, void 0, functio
     return res.status(201).json(launch);
 });
 exports.httpAddNewLaunch = httpAddNewLaunch;
-const httpAbortLaunch = (req, res) => {
+const httpAbortLaunch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const launchId = +req.params.id;
-    //if launch doesnt exist
-    if (!(0, launches_model_1.existLaunchWithId)(launchId)) {
+    //launch validation
+    const existsLaunch = yield (0, launches_model_1.existLaunchWithId)(launchId);
+    if (!existsLaunch) {
         res.status(404).json({
             error: "Launch not found",
         });
     }
-    const aborted = (0, launches_model_1.abortLaunchById)(launchId);
-    return res.status(200).json(aborted);
-};
+    const aborted = yield (0, launches_model_1.abortLaunchById)(launchId);
+    if (!aborted) {
+        return res.status(400).json({
+            error: `Launch not aborted`
+        });
+    }
+    return res.status(200).json({
+        ok: true
+    });
+});
 exports.httpAbortLaunch = httpAbortLaunch;
 exports.default = httpGetAllLaunches;

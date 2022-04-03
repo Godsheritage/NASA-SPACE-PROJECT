@@ -55,9 +55,9 @@ const saveLaunch = (launch) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 saveLaunch(launch);
-const existLaunchWithId = (launchId) => {
-    return launches.has(launchId);
-};
+const existLaunchWithId = (launchId) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield launches_mongo_1.default.findOne({ flightNumber: launchId });
+});
 exports.existLaunchWithId = existLaunchWithId;
 //to schedule a new launch and assign the incremental flight number
 const scheduleNewLaunch = (launch) => __awaiter(void 0, void 0, void 0, function* () {
@@ -72,11 +72,14 @@ const scheduleNewLaunch = (launch) => __awaiter(void 0, void 0, void 0, function
 });
 exports.scheduleNewLaunch = scheduleNewLaunch;
 //to abort launches with id
-const abortLaunchById = (launchId) => {
-    const aborted = launches.get(launchId);
-    aborted.upcoming = false;
-    aborted.success = false;
-    return aborted;
-};
+const abortLaunchById = (launchId) => __awaiter(void 0, void 0, void 0, function* () {
+    const aborted = yield launches_mongo_1.default.updateOne({
+        flightNumber: launchId,
+    }, {
+        upcoming: false,
+        sucess: false,
+    });
+    return aborted.modifiedCount === 1;
+});
 exports.abortLaunchById = abortLaunchById;
 exports.default = getAllLaunches;

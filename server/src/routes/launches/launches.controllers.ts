@@ -5,11 +5,12 @@ import getAllLaunches, {
   existLaunchWithId,
 } from "../../models/launches.model";
 
-
+//get all launches
 const httpGetAllLaunches: RequestHandler = async (req, res) => {
   return res.status(200).json( await getAllLaunches());
 };
 
+// post controller
 export const httpAddNewLaunch: RequestHandler = async (req, res) => {
   const launch = req.body;
 
@@ -35,18 +36,28 @@ export const httpAddNewLaunch: RequestHandler = async (req, res) => {
   return res.status(201).json(launch);
 };
 
-export const httpAbortLaunch: RequestHandler = (req, res) => {
+
+export const httpAbortLaunch: RequestHandler = async (req, res) => {
   const launchId = +req.params.id;
 
-  //if launch doesnt exist
-  if (!existLaunchWithId(launchId)) {
+  //launch validation
+  const existsLaunch = await existLaunchWithId(launchId)
+  if (!existsLaunch) {
     res.status(404).json({
       error: "Launch not found",
     });
   }
 
-  const aborted = abortLaunchById(launchId)
-  return res.status(200).json(aborted)
+  const aborted = await abortLaunchById(launchId)
+  if(!aborted){
+    return res.status(400).json({
+      error : `Launch not aborted`
+    })
+  }
+
+  return res.status(200).json({
+    ok: true
+  })
 };
 
 export default httpGetAllLaunches;
