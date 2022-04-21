@@ -28,13 +28,6 @@ mongoose_1.default.connection.on('eror', (err) => {
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.connect(MONGO_URL);
     yield (0, planets_model_1.loadPlanetsData)();
-    //
-    // extra options that should have gione wuth mongoose.connect {
-    //   useNewUrlParser:true,
-    //   useFindAndModify:false,
-    //   useCrateIndex:true,
-    //   useUnifiedTopology:true
-    // }
     server.listen(PORT, () => {
         console.log(`server is listenening on port ${PORT}...`);
     });

@@ -25,16 +25,6 @@ const startServer = async () => {
   await mongoose.connect(MONGO_URL)
   
   await loadPlanetsData();
-
-  //
-// extra options that should have gione wuth mongoose.connect {
-  //   useNewUrlParser:true,
-  //   useFindAndModify:false,
-  //   useCrateIndex:true,
-  //   useUnifiedTopology:true
-    
-  
-  // }
   
   server.listen(PORT, () => {
     console.log(`server is listenening on port ${PORT}...`);
