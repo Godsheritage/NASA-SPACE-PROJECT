@@ -17,7 +17,7 @@ export const httpAddNewLaunch: RequestHandler = async (req, res) => {
   if (
     !launch.mission ||
     !launch.rocket ||
-    !launch.launchDate ||
+    !launch.launchDate || 
     !launch.target
   ) {
     return res.status(400).json({
