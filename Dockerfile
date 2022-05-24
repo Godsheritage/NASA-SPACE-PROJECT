@@ -13,11 +13,10 @@ RUN npm run install-server --only=production
 COPY client/ client/
 RUN npm run build --prefix client
 
-
 COPY server/ server/
 
 USER : node
 
-CMD ["npm", "start" ]
+CMD ["npm", "run" , "server" ]
 
 EXPOSE 5000
