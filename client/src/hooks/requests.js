@@ -1,16 +1,16 @@
 import axios from "axios";
 
-const API_URL = "v1";
+// const API_URL = "v1";
 
 const httpGetPlanets = async () => {
   // Load planets and return as JSON.
-  const response = await axios.get(`${API_URL}/planets`);
+  const response = await axios.get(`/planets`);
   return response.data;
 };
 
 // Load launches, sort by flight number, and return as JSON.
 const httpGetLaunches = async () => {
-  const response = await axios.get(`${API_URL}/launches`);
+  const response = await axios.get(`/launches`);
   const fetchedLaunches = response.data;
   return fetchedLaunches.sort((a, b) => {
     return a.flightNumber - b.flightNumber;
@@ -21,7 +21,7 @@ const httpGetLaunches = async () => {
 
 const httpSubmitLaunch = async (launch) => {
   try {
-    await axios.post(`${API_URL}/launches`, launch);
+    await axios.post(`/launches`, launch);
   } catch (err) {
     return {
       ok: false,
@@ -32,7 +32,7 @@ const httpSubmitLaunch = async (launch) => {
 // Delete launch with given ID.
 const httpAbortLaunch = async (id) => {
   try {
-    await axios.delete(`${API_URL}/launches/${id}`);
+    await axios.delete(`/launches/${id}`);
   } catch (err) {
     console.log(err)
     return {
