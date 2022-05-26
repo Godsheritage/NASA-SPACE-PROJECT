@@ -3,8 +3,8 @@ import httpGetAllLaunches , { httpAddNewLaunch, httpAbortLaunch } from "./launch
 
 const launchesRouter = express.Router()
 
-launchesRouter.get('/', httpGetAllLaunches)
 launchesRouter.post('/', httpAddNewLaunch)
+launchesRouter.get('/', httpGetAllLaunches)
 launchesRouter.delete('/:id', httpAbortLaunch)
 
 
