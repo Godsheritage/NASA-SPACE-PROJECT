@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const launches_controllers_1 = __importStar(require("./launches.controllers"));
 const launchesRouter = express_1.default.Router();
-launchesRouter.get('/', launches_controllers_1.default);
 launchesRouter.post('/', launches_controllers_1.httpAddNewLaunch);
+launchesRouter.get('/', launches_controllers_1.default);
 launchesRouter.delete('/:id', launches_controllers_1.httpAbortLaunch);
 exports.default = launchesRouter;
