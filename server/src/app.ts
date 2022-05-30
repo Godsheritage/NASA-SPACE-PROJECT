@@ -15,9 +15,9 @@ app.use(express.json());
 app.use("/planets", planetRouter);
 app.use("/launches", launchesRouter);
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "..", "dists ")));
+  app.use(express.static(path.join(__dirname, "..", "dists")));
   app.get("/*", (req, res) => { 
-    res.sendFile(path.join(__dirname, "..", "dists ", "index.html"));
+    res.sendFile(path.join(__dirname, "..", "dists", "index.html"));
   });
 }
 
