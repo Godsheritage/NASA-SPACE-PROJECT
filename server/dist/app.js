@@ -18,15 +18,9 @@ app.use(express_1.default.json());
 app.use("/planets", planets_routers_1.default);
 app.use("/launches", launches_routers_1.default);
 if (process.env.NODE_ENV === "production") {
-<<<<<<< HEAD
     app.use(express_1.default.static(path_1.default.join(__dirname, "..", "dists")));
     app.get("/*", (req, res) => {
         res.sendFile(path_1.default.join(__dirname, "..", "dists", "index.html"));
-=======
-    app.use(express_1.default.static(path_1.default.join(__dirname, "..", "dists ")));
-    app.get("/*", (req, res) => {
-        res.sendFile(path_1.default.join(__dirname, "..", "dists ", "index.html"));
->>>>>>> ffa0de23d509457161741bc825a17149a606e19c
     });
 }
 exports.default = app;
